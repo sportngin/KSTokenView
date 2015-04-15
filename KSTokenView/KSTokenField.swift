@@ -514,13 +514,13 @@ class KSTokenField: UITextField {
          if !(label is UILabel) {
             label = UILabel(frame: .zeroRect) as UILabel
             label?.frame.origin.x += _marginX!
+            (label as! UILabel).font = promptTextFont
             leftViewMode = .Always
          }
 
-        (label as! UILabel!).textColor = promptTextColor
-        (label as! UILabel!).text = text
-         (label as! UILabel).font = promptTextFont
-         (label as! UILabel).sizeToFit()
+        (label as! UILabel).text = text
+        (label as! UILabel).font = font
+        (label as! UILabel).sizeToFit()
          leftView = label
          
       } else {
