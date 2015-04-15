@@ -175,4 +175,7 @@ class KSToken : UIControl {
       }
    }
 
+    override var description: String {
+        return title
+    }
 }
