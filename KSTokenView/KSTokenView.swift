@@ -311,7 +311,21 @@ class KSTokenView: UIView {
          _updateTokenFieldLayout(style)
       }
    }
-   
+
+    var promptTextColor: UIColor = UIColor.grayColor() {
+        didSet(newValue) {
+            _tokenField.promptTextColor = promptTextColor
+            _updateTokenField()
+        }
+    }
+
+    var promptFont: UIFont = UIFont.systemFontOfSize(16) {
+        didSet {
+            _tokenField.promptTextFont = promptFont
+            _updateTokenField()
+        }
+    }
+
    //MARK: - Constructors
    //__________________________________________________________________________________
    //
