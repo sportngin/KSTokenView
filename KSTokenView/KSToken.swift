@@ -152,7 +152,7 @@ class KSToken : UIControl {
       
       // Text
       var rectangleTextContent = title
-      let rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
+      let rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
       rectangleStyle.lineBreakMode = NSLineBreakMode.ByTruncatingTail
       rectangleStyle.alignment = NSTextAlignment.Center
       let rectangleFontAttributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: rectangleStyle]
@@ -174,8 +174,8 @@ class KSToken : UIControl {
          rectanglePath.stroke()
       }
    }
-   
-   func description() -> String {
-      return title
-   }
+
+    override var description: String {
+        return title
+    }
 }
