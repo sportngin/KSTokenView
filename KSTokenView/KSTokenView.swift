@@ -312,6 +312,7 @@ class KSTokenView: UIView {
       }
    }
 
+    /// default is gray. text color for prompt
     var promptTextColor: UIColor = UIColor.grayColor() {
         didSet(newValue) {
             _tokenField.promptTextColor = promptTextColor
@@ -319,12 +320,25 @@ class KSTokenView: UIView {
         }
     }
 
-    var promptFont: UIFont = UIFont.systemFontOfSize(16) {
+    /// default is 16.0. Font size for prompt
+    var promptTextFont: UIFont = UIFont.systemFontOfSize(16) {
         didSet {
-            _tokenField.promptTextFont = promptFont
+            _tokenField.promptTextFont = promptTextFont
             _updateTokenField()
         }
     }
+
+    /// default is 5.0. Horizontal indent for prompt
+    var promptTextIndent: CGFloat = 5.0 {
+        didSet {
+            if (oldValue != promptTextIndent) {
+                _tokenField.promptTextIndent = promptTextIndent
+                _updateTokenField()
+            }
+        }
+    }
+    
+
 
    //MARK: - Constructors
    //__________________________________________________________________________________

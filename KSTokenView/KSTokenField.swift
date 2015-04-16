@@ -79,9 +79,12 @@ class KSTokenField: UITextField {
 
     var promptTextFont: UIFont = UIFont.systemFontOfSize(16)
 
-   /// default is grayColor()
-   var promptTextColor: UIColor = UIColor.grayColor()
-   
+    /// default is grayColor()
+    var promptTextColor: UIColor = UIColor.grayColor()
+
+    /// default is 5.0
+    var promptTextIndent: CGFloat? = 5.0
+
    /// default is grayColor()
    var placeHolderColor: UIColor = UIColor.grayColor()
    
@@ -375,7 +378,7 @@ class KSTokenField: UITextField {
       let rightMargin = _rightViewRect().width
       let tokenHeight = _font!.lineHeight + _paddingY!;
       
-      var tokenPosition = CGPoint(x: _marginX!*2, y: _marginY!)
+      var tokenPosition = CGPoint(x: promptTextIndent! + _marginX!*2, y: _marginY!)
       
       for token: KSToken in tokens {
          let width = KSUtils.getRect(token.title, width: bounds.size.width, font: _font!).size.width + ceil(_paddingX!*2+1)
@@ -465,17 +468,17 @@ class KSTokenField: UITextField {
    private func _textRectWithBounds(bounds: CGRect) -> CGRect {
       if (!_setupCompleted) {return .zeroRect}
       if (tokens.count == 0 || _caretPoint == nil) {
-         return CGRect(x: _leftViewRect().width + _marginX!, y: (bounds.size.height - font.lineHeight)*0.5, width: bounds.size.width-5, height: bounds.size.height)
+         return CGRect(x: _leftViewRect().width + promptTextIndent!, y: (bounds.size.height - font.lineHeight)*0.5, width: bounds.size.width-5, height: bounds.size.height)
       }
       
       if (tokens.count != 0 && _state == .Closed) {
-         return CGRect(x: _leftViewRect().maxX + _marginX!, y: (_caretPoint!.y - font.lineHeight - (_marginY!)), width: (frame.size.width - _caretPoint!.x - _marginX!), height: bounds.size.height)
+         return CGRect(x: _leftViewRect().maxX + _marginX! + promptTextIndent!, y: (_caretPoint!.y - font.lineHeight - (_marginY!)), width: (frame.size.width - _caretPoint!.x - promptTextIndent!), height: bounds.size.height)
       }
       return CGRect(x: _caretPoint!.x, y: (_caretPoint!.y - font.lineHeight - (_marginY!)), width: (frame.size.width - _caretPoint!.x - _marginX!), height: bounds.size.height)
    }
    
    override func leftViewRectForBounds(bounds: CGRect) -> CGRect {
-      return CGRect(x: _marginX!, y: (_selfFrame != nil) ? (_selfFrame!.height - _leftViewRect().height)*0.5: (bounds.height - _leftViewRect().height)*0.5, width: _leftViewRect().width, height: _leftViewRect().height)
+      return CGRect(x: promptTextIndent!, y: (_selfFrame != nil) ? (_selfFrame!.height - _leftViewRect().height)*0.5: (bounds.height - _leftViewRect().height)*0.5, width: _leftViewRect().width, height: _leftViewRect().height)
    }
    
    override func textRectForBounds(bounds: CGRect) -> CGRect {
@@ -513,7 +516,7 @@ class KSTokenField: UITextField {
          var label = leftView
          if !(label is UILabel) {
             label = UILabel(frame: .zeroRect) as UILabel
-            label?.frame.origin.x += _marginX!
+            label?.frame.origin.x += promptTextIndent!
             leftViewMode = .Always
          }
         (label as! UILabel).font = promptTextFont
@@ -580,7 +583,7 @@ class KSTokenField: UITextField {
    }
    
    private func _initPlaceholderLabel() {
-      let xPos = _marginX!
+      let xPos = _marginX! + promptTextIndent!
       if (_placeholderLabel == nil) {
          _placeholderLabel = UILabel(frame: CGRect(x: xPos, y: 0, width: _selfFrame!.width - xPos - _leftViewRect().size.width, height: 30))
          _placeholderLabel?.textColor = placeHolderColor
