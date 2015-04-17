@@ -337,7 +337,10 @@ class KSTokenView: UIView {
             }
         }
     }
-    
+
+    func refreshLayout() {
+        _commonSetup()
+    }
 
 
    //MARK: - Constructors
@@ -365,7 +368,9 @@ class KSTokenView: UIView {
    :returns: KSTokenView object
    */
    required init(coder aDecoder: NSCoder) {
-      _tokenField = KSTokenField(coder: aDecoder)
+    //  _tokenField = KSTokenField(coder: aDecoder)
+    _tokenField = KSTokenField(frame: CGRectZero)
+
       super.init(coder: aDecoder)
       _commonSetup()
    }
